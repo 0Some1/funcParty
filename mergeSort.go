@@ -1,6 +1,5 @@
 package main
 
-
 import "sync"
 
 func mergeSort(arr []int) []int {
@@ -54,7 +53,7 @@ func mergeSort(arr []int) []int {
 the function mergesortC take an array and number of cpu
 and it will make go routine as many as it is efficient (base on the cpu cores that you have)
 */
-func mergeSortC(arr []int,cpu int) []int {
+func mergeSortC(arr []int, cpu int) []int {
 
 	if len(arr) == 1 {
 		return arr
@@ -73,23 +72,21 @@ func mergeSortC(arr []int,cpu int) []int {
 	wg := sync.WaitGroup{}
 	if cpu >= 2 {
 		wg.Add(2)
-		cpu -=2
+		cpu -= 2
 		go func() {
-			a = mergeSortC(arr[:len(arr)/2],cpu)
+			a = mergeSortC(arr[:len(arr)/2], cpu)
 			wg.Done()
 		}()
 		go func() {
-			b = mergeSortC(arr[len(arr)/2:],cpu)
+			b = mergeSortC(arr[len(arr)/2:], cpu)
 			wg.Done()
 		}()
 		wg.Wait()
-	}else {
-		a = mergeSortC(arr[:len(arr)/2],cpu)
+	} else {
+		a = mergeSortC(arr[:len(arr)/2], cpu)
 
-		b = mergeSortC(arr[len(arr)/2:],cpu)
+		b = mergeSortC(arr[len(arr)/2:], cpu)
 	}
-
-
 
 	i := 0
 	j := 0
@@ -119,7 +116,6 @@ func mergeSortC(arr []int,cpu int) []int {
 			index++
 		}
 	}
-
 
 	return arr2
 }
@@ -193,4 +189,3 @@ func mergeSortC(arr []int,cpu int) []int {
 //	c <- arr2
 //	return
 //}
-
