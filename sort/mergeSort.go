@@ -1,21 +1,22 @@
-package main
+package sort
 
 import "sync"
 
-func mergeSort(arr []int) []int {
+//MergeSort sort an array in a merge style
+func MergeSort(arr []int) []int {
 	if len(arr) == 1 {
 		return arr
-	} else if len(arr) == 2 {
+	}
+	if len(arr) == 2 {
 		if arr[0] > arr[1] {
 			arr[0], arr[1] = arr[1], arr[0]
 			return arr
-		} else {
-			return arr
 		}
+		return arr
 	}
 
-	a := mergeSort(arr[:len(arr)/2])
-	b := mergeSort(arr[len(arr)/2:])
+	a := MergeSort(arr[:len(arr)/2])
+	b := MergeSort(arr[len(arr)/2:])
 
 	i := 0
 	j := 0
@@ -49,24 +50,22 @@ func mergeSort(arr []int) []int {
 	return arr2
 }
 
-/*here is the most important part
+/*MergeSortC is the most important part
 the function mergesortC take an array and number of cpu
 and it will make go routine as many as it is efficient (base on the cpu cores that you have)
 */
-func mergeSortC(arr []int, cpu int) []int {
-
+func MergeSortC(arr []int, cpu int) []int {
 	if len(arr) == 1 {
 		return arr
-	} else if len(arr) == 2 {
+	}
+	if len(arr) == 2 {
 		if arr[0] > arr[1] {
 			arr[0], arr[1] = arr[1], arr[0]
-
-			return arr
-		} else {
-
 			return arr
 		}
+		return arr
 	}
+
 	var a []int
 	var b []int
 	wg := sync.WaitGroup{}
@@ -74,18 +73,18 @@ func mergeSortC(arr []int, cpu int) []int {
 		wg.Add(2)
 		cpu -= 2
 		go func() {
-			a = mergeSortC(arr[:len(arr)/2], cpu)
+			a = MergeSortC(arr[:len(arr)/2], cpu)
 			wg.Done()
 		}()
 		go func() {
-			b = mergeSortC(arr[len(arr)/2:], cpu)
+			b = MergeSortC(arr[len(arr)/2:], cpu)
 			wg.Done()
 		}()
 		wg.Wait()
 	} else {
-		a = mergeSortC(arr[:len(arr)/2], cpu)
+		a = MergeSortC(arr[:len(arr)/2], cpu)
 
-		b = mergeSortC(arr[len(arr)/2:], cpu)
+		b = MergeSortC(arr[len(arr)/2:], cpu)
 	}
 
 	i := 0
