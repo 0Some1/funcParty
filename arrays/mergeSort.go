@@ -1,4 +1,4 @@
-package sort
+package arrays
 
 import "sync"
 
@@ -50,7 +50,7 @@ func MergeSort(arr []int) []int {
 	return arr2
 }
 
-/*MergeSortC is the most important part
+/*MergeSortC is the most important part ,
 the function mergesortC take an array and number of cpu
 and it will make go routine as many as it is efficient (base on the cpu cores that you have)
 */
