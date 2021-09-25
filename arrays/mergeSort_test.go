@@ -1,4 +1,4 @@
-package sort
+package arrays
 
 import (
 	"runtime"
